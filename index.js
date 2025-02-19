@@ -24,7 +24,7 @@ app.use("/api/auth", authRoutes);
 
 app.get("/api/product", async (req, res) => {
     try {
-        const { productName } = req.query; // ✅ Use req.query for GET requests
+        const { productName } = req.query;
         if (!productName) {
             return res.status(400).json({ message: "Product name is required" });
         }
