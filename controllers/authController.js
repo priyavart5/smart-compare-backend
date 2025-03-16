@@ -3,18 +3,23 @@ const jwt = require("jsonwebtoken");
 
 exports.signup = async (req, res) => {
     try {
-        const { username, email, password } = req.body;
-        if (!username || !email || !password) return res.status(400).json({ message: "All fields are required" });
+        const { username, email, password, profileImage } = req.body;
+
+        if (!username || !email || !password || !profileImage) {
+            return res.status(400).json({ message: "All fields are required" });
+        }
 
         const userExists = await User.findOne({ email });
         if (userExists) return res.status(400).json({ message: "Email already in use" });
 
-        const user = await User.create({ username, email, password });
+        const user = await User.create({ username, email, password, profileImage });
+
         res.status(201).json({ user });
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
 };
+
 
 exports.login = async (req, res) => {
     try {

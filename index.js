@@ -4,11 +4,15 @@ const cors = require("cors");
 const helmet = require("helmet");
 const morgan = require("morgan");
 const connectDB = require("./config/db");
+const bodyParser = require("body-parser");
 
 const authRoutes = require("./routes/authRoutes");
 const Product = require("./models/Product");
 
 const app = express();
+
+app.use(bodyParser.json({ limit: "100mb" })); 
+app.use(bodyParser.urlencoded({ limit: "100mb", extended: true }));
 
 // Middleware
 app.use(express.json());
